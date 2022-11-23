@@ -9,7 +9,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { me } from '../initial_state';
 import classNames from 'classnames';
 import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },

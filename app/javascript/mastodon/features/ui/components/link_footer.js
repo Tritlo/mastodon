@@ -7,7 +7,7 @@ import { domain, version, source_url, profile_directory as profileDirectory } fr
 import { logOut } from 'mastodon/utils/log_out';
 import { openModal } from 'mastodon/actions/modal';
 import { PERMISSION_INVITE_USERS } from 'mastodon/permissions';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },

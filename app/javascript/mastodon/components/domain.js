@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import IconButton from './icon_button';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },

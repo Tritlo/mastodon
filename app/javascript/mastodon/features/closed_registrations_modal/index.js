@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { domain } from 'mastodon/initial_state';
 import { fetchServer } from 'mastodon/actions/server';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const mapStateToProps = state => ({
   message: state.getIn(['server', 'server', 'registrations', 'message']),

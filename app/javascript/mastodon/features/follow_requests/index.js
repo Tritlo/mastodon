@@ -13,7 +13,7 @@ import { fetchFollowRequests, expandFollowRequests } from '../../actions/account
 import ScrollableList from '../../components/scrollable_list';
 import { me } from '../../initial_state';
 import { Helmet } from 'react-helmet';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   heading: { id: 'column.follow_requests', defaultMessage: 'Follow requests' },

@@ -14,7 +14,7 @@ import LoadMore from 'mastodon/components/load_more';
 import ScrollContainer from 'mastodon/containers/scroll_container';
 import LoadingIndicator from 'mastodon/components/loading_indicator';
 import { Helmet } from 'react-helmet';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   title: { id: 'column.directory', defaultMessage: 'Browse profiles' },

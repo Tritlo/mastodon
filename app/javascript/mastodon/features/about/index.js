@@ -12,7 +12,7 @@ import Skeleton from 'mastodon/components/skeleton';
 import Icon from 'mastodon/components/icon';
 import classNames from 'classnames';
 import Image from 'mastodon/components/image';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   title: { id: 'column.about', defaultMessage: 'About' },

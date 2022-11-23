@@ -4,7 +4,7 @@ import { blockDomain, unblockDomain } from '../actions/domain_blocks';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Domain from '../components/domain';
 import { openModal } from '../actions/modal';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Block entire domain' },

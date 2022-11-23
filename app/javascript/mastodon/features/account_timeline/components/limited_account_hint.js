@@ -5,7 +5,7 @@ import { revealAccount } from 'mastodon/actions/accounts';
 import { FormattedMessage } from 'react-intl';
 import Button from 'mastodon/components/button';
 import { domain } from 'mastodon/initial_state';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const mapDispatchToProps = (dispatch, { accountId }) => ({
 

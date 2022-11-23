@@ -9,7 +9,7 @@ import Account from 'mastodon/containers/account_container';
 import { domain } from 'mastodon/initial_state';
 import Image from 'mastodon/components/image';
 import { Link } from 'react-router-dom';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   aboutActiveUsers: { id: 'server_banner.about_active_users', defaultMessage: 'People using this server during the last 30 days (Monthly Active Users)' },

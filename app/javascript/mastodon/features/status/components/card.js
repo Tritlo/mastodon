@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 import classnames from 'classnames';
 import Icon from 'mastodon/components/icon';
 import { useBlurhash } from 'mastodon/initial_state';

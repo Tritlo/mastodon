@@ -16,7 +16,7 @@ import DropdownMenuContainer from 'mastodon/containers/dropdown_menu_container';
 import AccountNoteContainer from '../containers/account_note_container';
 import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
 import { Helmet } from 'react-helmet';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },

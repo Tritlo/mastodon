@@ -12,7 +12,7 @@ import { connectCommunityStream } from '../../actions/streaming';
 import { Helmet } from 'react-helmet';
 import { domain } from 'mastodon/initial_state';
 import DismissableBanner from 'mastodon/components/dismissable_banner';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Local timeline' },

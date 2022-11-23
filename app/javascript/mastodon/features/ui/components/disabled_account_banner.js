@@ -6,7 +6,7 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { disabledAccountId, movedToAccountId, domain } from 'mastodon/initial_state';
 import { openModal } from 'mastodon/actions/modal';
 import { logOut } from 'mastodon/utils/log_out';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 const messages = defineMessages({
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },

@@ -3,7 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { autoPlayGif } from 'mastodon/initial_state';
 import Skeleton from 'mastodon/components/skeleton';
-import punycode from 'punycode';
+import punycode from 'punycode/';
 
 export default class DisplayName extends React.PureComponent {
 
