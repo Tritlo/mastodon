@@ -7,6 +7,7 @@ import { domain, version, source_url, profile_directory as profileDirectory } fr
 import { logOut } from 'mastodon/utils/log_out';
 import { openModal } from 'mastodon/actions/modal';
 import { PERMISSION_INVITE_USERS } from 'mastodon/permissions';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },
@@ -51,11 +52,12 @@ class LinkFooter extends React.PureComponent {
 
     const canInvite = signedIn && ((permissions & PERMISSION_INVITE_USERS) === PERMISSION_INVITE_USERS);
     const canProfileDirectory = profileDirectory;
+    const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
     return (
       <div className='link-footer'>
         <p>
-          <strong>{domain}</strong>:
+          <strong>{prettyDomain}</strong>:
           {' '}
           <Link key='about' to='/about'><FormattedMessage id='footer.about' defaultMessage='About' /></Link>
           {canInvite && (

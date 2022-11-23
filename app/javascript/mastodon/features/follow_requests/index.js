@@ -13,6 +13,7 @@ import { fetchFollowRequests, expandFollowRequests } from '../../actions/account
 import ScrollableList from '../../components/scrollable_list';
 import { me } from '../../initial_state';
 import { Helmet } from 'react-helmet';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   heading: { id: 'column.follow_requests', defaultMessage: 'Follow requests' },
@@ -52,6 +53,7 @@ class FollowRequests extends ImmutablePureComponent {
 
   render () {
     const { intl, accountIds, hasMore, multiColumn, locked, domain, isLoading } = this.props;
+    const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
     if (!accountIds) {
       return (
@@ -67,7 +69,7 @@ class FollowRequests extends ImmutablePureComponent {
         <FormattedMessage
           id='follow_requests.unlocked_explanation'
           defaultMessage='Even though your account is not locked, the {domain} staff thought you might want to review follow requests from these accounts manually.'
-          values={{ domain: domain }}
+          values={{ domain: prettyDomain }}
         />
       </div>
     );

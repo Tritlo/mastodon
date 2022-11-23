@@ -16,6 +16,7 @@ import DropdownMenuContainer from 'mastodon/containers/dropdown_menu_container';
 import AccountNoteContainer from '../containers/account_note_container';
 import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
 import { Helmet } from 'react-helmet';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
@@ -58,7 +59,8 @@ const messages = defineMessages({
 
 const titleFromAccount = account => {
   const displayName = account.get('display_name');
-  const acct = account.get('acct') === account.get('username') ? `${account.get('username')}@${domain}` : account.get('acct');
+  const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
+  const acct = account.get('acct') === account.get('username') ? `${account.get('username')}@${prettyDomain}` : account.get('acct');
   const prefix = displayName.trim().length === 0 ? account.get('username') : displayName;
 
   return `${prefix} (@${acct})`;
@@ -160,6 +162,7 @@ class Header extends ImmutablePureComponent {
     const suspended    = account.get('suspended');
     const isRemote     = account.get('acct') !== account.get('username');
     const remoteDomain = isRemote ? account.get('acct').split('@')[1] : null;
+    const prettyRemoteDomain = remoteDomain ? punycode.toUnicode(remoteDomain) : remoteDomain;
 
     let info        = [];
     let actionBtn   = '';
@@ -270,9 +273,9 @@ class Header extends ImmutablePureComponent {
       menu.push(null);
 
       if (account.getIn(['relationship', 'domain_blocking'])) {
-        menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain: remoteDomain }), action: this.props.onUnblockDomain });
+        menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain: prettyRemoteDomain }), action: this.props.onUnblockDomain });
       } else {
-        menu.push({ text: intl.formatMessage(messages.blockDomain, { domain: remoteDomain }), action: this.props.onBlockDomain });
+        menu.push({ text: intl.formatMessage(messages.blockDomain, { domain: prettyRemoteDomain }), action: this.props.onBlockDomain });
       }
     }
 
@@ -285,7 +288,8 @@ class Header extends ImmutablePureComponent {
     const displayNameHtml = { __html: account.get('display_name_html') };
     const fields          = account.get('fields');
     const isLocal         = account.get('acct').indexOf('@') === -1;
-    const acct            = isLocal && domain ? `${account.get('acct')}@${domain}` : account.get('acct');
+    const prettyDomain    = domain ? punycode.toUnicode(domain) : domain;
+    const acct            = isLocal && domain ? `${account.get('acct')}@${prettyDomain}` : account.get('acct');
     const isIndexable     = !account.get('noindex');
 
     let badge;

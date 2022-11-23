@@ -6,6 +6,7 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { disabledAccountId, movedToAccountId, domain } from 'mastodon/initial_state';
 import { openModal } from 'mastodon/actions/modal';
 import { logOut } from 'mastodon/utils/log_out';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },
@@ -50,10 +51,11 @@ class DisabledAccountBanner extends React.PureComponent {
 
   render () {
     const { disabledAcct, movedToAcct } = this.props;
+    const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
     const disabledAccountLink = (
       <Link to={`/@${disabledAcct}`}>
-        {disabledAcct}@{domain}
+        {disabledAcct}@{prettyDomain}
       </Link>
     );
 
@@ -66,7 +68,7 @@ class DisabledAccountBanner extends React.PureComponent {
               defaultMessage='Your account {disabledAccount} is currently disabled because you moved to {movedToAccount}.'
               values={{
                 disabledAccount: disabledAccountLink,
-                movedToAccount: <Link to={`/@${movedToAcct}`}>{movedToAcct.includes('@') ? movedToAcct : `${movedToAcct}@${domain}`}</Link>,
+                movedToAccount: <Link to={`/@${movedToAcct}`}>{movedToAcct.includes('@') ? movedToAcct : `${movedToAcct}@${prettyDomain}`}</Link>,
               }}
             />
           ) : (

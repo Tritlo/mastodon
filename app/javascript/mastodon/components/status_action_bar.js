@@ -9,6 +9,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { me } from '../initial_state';
 import classNames from 'classnames';
 import { PERMISSION_MANAGE_USERS } from 'mastodon/permissions';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -301,13 +302,14 @@ class StatusActionBar extends ImmutablePureComponent {
 
       if (account.get('acct') !== account.get('username')) {
         const domain = account.get('acct').split('@')[1];
+        const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
         menu.push(null);
 
         if (relationship && relationship.get('domain_blocking')) {
-          menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain }), action: this.handleUnblockDomain });
+          menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain: prettyDomain }), action: this.handleUnblockDomain });
         } else {
-          menu.push({ text: intl.formatMessage(messages.blockDomain, { domain }), action: this.handleBlockDomain });
+          menu.push({ text: intl.formatMessage(messages.blockDomain, { domain: prettyDomain }), action: this.handleBlockDomain });
         }
       }
 

@@ -12,6 +12,7 @@ import { connectCommunityStream } from '../../actions/streaming';
 import { Helmet } from 'react-helmet';
 import { domain } from 'mastodon/initial_state';
 import DismissableBanner from 'mastodon/components/dismissable_banner';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Local timeline' },
@@ -120,6 +121,7 @@ class CommunityTimeline extends React.PureComponent {
   render () {
     const { intl, hasUnread, columnId, multiColumn, onlyMedia } = this.props;
     const pinned = !!columnId;
+    const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
     return (
       <Column bindToDocument={!multiColumn} ref={this.setRef} label={intl.formatMessage(messages.title)}>
@@ -137,7 +139,7 @@ class CommunityTimeline extends React.PureComponent {
         </ColumnHeader>
 
         <DismissableBanner id='community_timeline'>
-          <FormattedMessage id='dismissable_banner.community_timeline' defaultMessage='These are the most recent public posts from people whose accounts are hosted by {domain}.' values={{ domain }} />
+          <FormattedMessage id='dismissable_banner.community_timeline' defaultMessage='These are the most recent public posts from people whose accounts are hosted by {domain}.' values={{ domain: prettyDomain }} />
         </DismissableBanner>
 
         <StatusListContainer

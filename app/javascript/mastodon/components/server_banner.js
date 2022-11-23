@@ -9,6 +9,7 @@ import Account from 'mastodon/containers/account_container';
 import { domain } from 'mastodon/initial_state';
 import Image from 'mastodon/components/image';
 import { Link } from 'react-router-dom';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   aboutActiveUsers: { id: 'server_banner.about_active_users', defaultMessage: 'People using this server during the last 30 days (Monthly Active Users)' },
@@ -36,11 +37,12 @@ class ServerBanner extends React.PureComponent {
   render () {
     const { server, intl } = this.props;
     const isLoading = server.get('isLoading');
+    const prettyDomain = domain ? punycode.toUnicode(domain) : domain;
 
     return (
       <div className='server-banner'>
         <div className='server-banner__introduction'>
-          <FormattedMessage id='server_banner.introduction' defaultMessage='{domain} is part of the decentralized social network powered by {mastodon}.' values={{ domain: <strong>{domain}</strong>, mastodon: <a href='https://joinmastodon.org' target='_blank'>Mastodon</a> }} />
+          <FormattedMessage id='server_banner.introduction' defaultMessage='{domain} is part of the decentralized social network powered by {mastodon}.' values={{ domain: <strong>{prettyDomain}</strong>, mastodon: <a href='https://joinmastodon.org' target='_blank'>Mastodon</a> }} />
         </div>
 
         <Image blurhash={server.getIn(['thumbnail', 'blurhash'])} src={server.getIn(['thumbnail', 'url'])} className='server-banner__hero' />

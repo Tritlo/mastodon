@@ -12,6 +12,7 @@ import Skeleton from 'mastodon/components/skeleton';
 import Icon from 'mastodon/components/icon';
 import classNames from 'classnames';
 import Image from 'mastodon/components/image';
+import punycode from 'punycode';
 
 const messages = defineMessages({
   title: { id: 'column.about', defaultMessage: 'About' },
@@ -117,7 +118,7 @@ class About extends React.PureComponent {
         <div className='scrollable about'>
           <div className='about__header'>
             <Image blurhash={server.getIn(['thumbnail', 'blurhash'])} src={server.getIn(['thumbnail', 'url'])} srcSet={server.getIn(['thumbnail', 'versions'])?.map((value, key) => `${value} ${key.replace('@', '')}`).join(', ')} className='about__header__hero' />
-            <h1>{isLoading ? <Skeleton width='10ch' /> : server.get('domain')}</h1>
+            <h1>{isLoading ? <Skeleton width='10ch' /> : punycode.toUnicode(server.get('domain'))}</h1>
             <p><FormattedMessage id='about.powered_by' defaultMessage='Decentralized social media powered by {mastodon}' values={{ mastodon: <a href='https://joinmastodon.org' className='about__mail' target='_blank'>Mastodon</a> }} /></p>
           </div>
 
@@ -187,7 +188,7 @@ class About extends React.PureComponent {
                   {domainBlocks.get('items').map(block => (
                     <div className='about__domain-blocks__domain' key={block.get('domain')}>
                       <div className='about__domain-blocks__domain__header'>
-                        <h6><span title={`SHA-256: ${block.get('digest')}`}>{block.get('domain')}</span></h6>
+                        <h6><span title={`SHA-256: ${block.get('digest')}`}>{punycode.toUnicode(block.get('domain'))}</span></h6>
                         <span className='about__domain-blocks__domain__type' title={intl.formatMessage(severityMessages[block.get('severity')].explanation)}>{intl.formatMessage(severityMessages[block.get('severity')].title)}</span>
                       </div>
 

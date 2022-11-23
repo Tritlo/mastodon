@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { autoPlayGif } from 'mastodon/initial_state';
 import Skeleton from 'mastodon/components/skeleton';
+import punycode from 'punycode';
 
 export default class DisplayName extends React.PureComponent {
 
@@ -41,6 +42,7 @@ export default class DisplayName extends React.PureComponent {
   render () {
     const { others, localDomain } = this.props;
 
+    const prettyLocalDomain = localDomain ? punycode.toUnicode(localDomain) : localDomain;
     let displayName, suffix, account;
 
     if (others && others.size > 1) {
@@ -59,7 +61,7 @@ export default class DisplayName extends React.PureComponent {
       let acct = account.get('acct');
 
       if (acct.indexOf('@') === -1 && localDomain) {
-        acct = `${acct}@${localDomain}`;
+        acct = `${acct}@${prettyLocalDomain}`;
       }
 
       displayName = <bdi><strong className='display-name__html' dangerouslySetInnerHTML={{ __html: account.get('display_name_html') }} /></bdi>;
